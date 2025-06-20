@@ -1,0 +1,138 @@
+{
+  "name": "linkedln post",
+  "nodes": [
+    {
+      "parameters": {},
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "f1703f1b-cf8e-4820-b779-c9c9e8c8b9f5",
+      "name": "When clicking ‘Execute workflow’"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "f7881261-d261-4e92-984e-bb89bdca26e3",
+              "name": "topic",
+              "value": "\" From electrical engineering to AI – my transition into software begins. i have also did some projects like fetching live  weather data using python also with n8n creating ai agaent that designs marketing creatives,auomatic ig dm  using n8n  \"",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "f15c2206-b5ab-4620-88d6-8fe2bf1671ec",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "modelId": {
+          "__rl": true,
+          "value": "=gpt-4o-mini",
+          "mode": "id"
+        },
+        "messages": {
+          "values": [
+            {
+              "content": "=Write a short and engaging LinkedIn post on the topic: {{ $json.topic }}\n"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.openAi",
+      "typeVersion": 1.8,
+      "position": [
+        440,
+        0
+      ],
+      "id": "97cebbe2-156d-46c6-a716-23d258198a25",
+      "name": "OpenAI",
+      "credentials": {
+        "openAiApi": {
+          "id": "nakpfKdso1q4SgIL",
+          "name": "OpenAi account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "person": "qvZ3fWbjVM",
+        "text": "={{ $json.message.content }}",
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.linkedIn",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "id": "5c6c015c-6ad2-41f7-8176-c8cec714bec0",
+      "name": "LinkedIn",
+      "credentials": {
+        "linkedInOAuth2Api": {
+          "id": "fQyD6EHvbg9goG0g",
+          "name": "LinkedIn account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "When clicking ‘Execute workflow’": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "OpenAI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "OpenAI": {
+      "main": [
+        [
+          {
+            "node": "LinkedIn",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "7ce3420a-127d-43a9-a0ec-ae3f339b3e0f",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "9ca6722dc1a46c0258317f41263e5c0a90b4ee57742dc1eb8131d227ff87731a"
+  },
+  "id": "jH6HuGq6lG66boMZ",
+  "tags": []
+}
